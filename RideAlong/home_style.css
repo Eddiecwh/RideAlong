@@ -1,0 +1,59 @@
+.button {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background: rgba(255,153,0,0.2);
+  color: white;
+  font-size: 50px;
+  padding: 16px 30px;
+  border: 2px solid rgb(179, 107, 0);
+  cursor: pointer;
+  border-radius: 10px;
+  text-align: center;
+  transition: all 0.5s;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 30px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.bg-image {
+  /* The image used */
+  background-image: url("background.jpg");
+
+  /* Add the blur effect */
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
