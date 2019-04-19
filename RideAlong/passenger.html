@@ -6,21 +6,32 @@
 
 <head>
   <!-- CSS stylesheets -->
+    <!-- For general styling -->
   <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- For the title font -->
   <link href='https://fonts.googleapis.com/css?family=Alfa Slab One' rel='stylesheet'>
+    <!-- For the slide-out menu -->
+  <link rel="stylesheet" href="sidebar_styling.css">
+
   <title>Ride Along</title>
   <meta name="viewport" content="initial-scale=1.0">
   <meta charset="utf-8">
 </head>
 
 <body>
- <body>
+  <!-- Sidebar -->
+  <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none" id="mySidebar">
+    <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+    <a href="#" class="w3-bar-item w3-button">Link 1</a>
+    <a href="#" class="w3-bar-item w3-button">Link 2</a>
+    <a href="#" class="w3-bar-item w3-button">Link 3</a>
+  </div>
+
   <div class="topnav">
-    <div class="leftItems">
-      <a href="">Menu Items</a>
-    </div>
+      <button class="w3-button w3-dark-grey w3-xlarge" onclick="w3_open()">☰</button>
     <div class="centerItems">
       <h5 style="font-size: 20px; font-family: 'Alfa Slab One'">RideAlong</h5>
+    </div>
     <div class="rightItems">
       <a href="driver.html">Driver</a>
       <a class="active" href="passenger.html">Passenger</a>
@@ -40,6 +51,16 @@
                  
     var map1 = new google.maps.Map(document.getElementById("map1"), settings);
   }
+  </script>
+
+  <script>
+  function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+  }
+
+  function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+  } 
   </script>
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGPJCC0UuL1quW1tz93wX_bvON2Z7EmAA&callback=initMap"
