@@ -52,15 +52,14 @@ body {
 
 #ride {
   font-family: 'Poppins', sans-serif;
-  border: 2px solid black; height: 100%; width: 100%; padding: 0px; margin: 0px;
   text-align: center;
 }
 
-#ride .title1 {
+#mySidebar #ride .title1 {
   margin-bottom: 40px;
 }
 
-#ride button {
+#mySidebar #ride button {
   margin: 0 auto;
   margin-top: 10px;
   -webkit-transition-duration: 0.4s;
@@ -73,26 +72,26 @@ body {
   border-radius: 8px;
 }
 
-#ride hr {
+#mySidebar #ride hr {
   border: 1px solid #adb5ba;
   width: 600px;
   margin: 0 auto;
   margin-top: 40px;
 }
 
-#ride button:hover {
+#mySidebar #ride button:hover {
   background-color: white;
   color: black;
   border-radius: 8px;
 }
 
-#ride .search {
+#mySidebar #ride .search {
   margin-top: 40px;
   color: #666666;
   background-color: #d9d9d9;
 }
 
-#ride .search:hover {
+#mySidebar #ride .search:hover {
   color: black;
   background-color: white;
 }

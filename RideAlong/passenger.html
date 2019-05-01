@@ -74,15 +74,75 @@
     var text = 'Your selected date & time is: ' + dateTime;
     document.getElementById("chosenDate").innerHTML = text;
   }
+
+function locateAddress(input) {
+geocoder = new google.maps.Geocoder();
+
+geocoder.geocode({ 'address': input }
+
+  , function(results, status) {
+
+    if (status == google.maps.GeocoderStatus.OK) {
+      var msg = '<b>Found ' + results.length + ' addresses</b><br/>';
+
+      if (results.length > 1) {
+        msg += '<ol>';
+        for (i = 0; i < results.length; i++) {
+          msg += '<li><a href="javascript:goto' 
+                  + results[i].geometry.location.toString() 
+                  + '">' + results[i].formatted_address + '</a>'
+                  + '</li>'
+
+        }
+        msg += '</ol>';
+
+        //lkd, sigh
+        // msg += '<div style="text-align:right; width:95%"><a href="javascript:hideMain()"><b>Close this dialog</b></a></div>';
+        msg += '<a class=aCloser href="javascript:hideMain()">Close this dialog</a>';
+
+        // Display the floating window's contents
+        document.getElementById("main").innerHTML = msg;
+
+        // Make the floating window visible
+        document.getElementById("window").style.visibility = 'visible';
+
+        // Set the height of the floating window so that it displays all addresses
+        // The following statement uses jQuery to retrieve the height of certain 
+        // elements on the page, since we have included the necessary jQuery 
+        // scripts to make the data window draggable.
+          /* argh height:92px;  world work fine EXCEPT author overwrites in his styling for both #main & #top. Sheesh!!! */
+          // how if found out! 
+          // document.getElementById("main").innerHTML += "<br>"+ $("#main").outerHeight() + ", "+ $("#top").outerHeight();
+        document.getElementById("window").style.height = $("#main").outerHeight() + $("#top").outerHeight() + 11;
+
+      } else {
+        map.setCenter(results[0].geometry.location);
+        map.setZoom(15);
+      }
+
+    }// end status OK
+
+  }); // end geocoder.geocode function
+
+}// end locateAddress 
 </script>
 
 <body>
   <!-- Sidebar -->
-  <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none" id="mySidebar">
+  <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none; width: 700px" id="mySidebar">
     <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
-    <a href="#" class="w3-bar-item w3-button">Link 1</a>
-    <a href="#" class="w3-bar-item w3-button">Link 2</a>
-    <a href="#" class="w3-bar-item w3-button">Link 3</a>
+    <div id="ride">
+        <h1 class="title1" style="font-family: 'Poppins', sans-serif; margin-top: 100px">Looking for a ride? Let's go!</h1>
+          <button onclick="open_start()">Leaving from</button>
+          <p id="start" style="font-style: italic"></p>
+          <button onclick="open_end()">Going to</button>
+          <p id="end" style="font-style: italic"></p>
+          <hr>
+          <button id="date" style="margin-top: 30px; font-style: italic" onclick="open_date()">Select your Date and Time</button>
+          <p id="chosenDate"></p>
+          <hr>
+          <button class="button search">Click here to search for your ride</button>
+    </div> 
   </div>
 
   <div class="topnav">
@@ -95,20 +155,10 @@
       <a class="active" href="passenger.html">Passenger</a>
     </div>
   </div>
+  <div id="map1"></div>
 
-  <div id="ride">
-    <h1 class="title1" style="font-family: 'Poppins', sans-serif; margin-top: 100px">Looking for a ride? Let's go!</h1>
-      <button onclick="open_start()">Leaving from</button>
-      <p id="start" style="font-style: italic"></p>
-      <button onclick="open_end()">Going to</button>
-      <p id="end" style="font-style: italic"></p>
-      <hr>
-      <button id="date" style="margin-top: 30px; font-style: italic" onclick="open_date()">Select your Date and Time</button>
-      <p id="chosenDate"></p>
-      <hr>
-      <button class="button search">Click here to search for your ride</button>
-  </div> <!-- Div for map -->
-  <!--<script>
+  <!-- Div for map -->
+  <script>
   // Function to create map
   function initMap() {
         var latlng = new google.maps.LatLng(35.2031, -85.9211);
@@ -120,10 +170,10 @@
                  
     var map1 = new google.maps.Map(document.getElementById("map1"), settings);
   }
-  </script>-->
+  </script>
 
-  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGPJCC0UuL1quW1tz93wX_bvON2Z7EmAA&callback=initMap"
-    async defer></script> -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGPJCC0UuL1quW1tz93wX_bvON2Z7EmAA&callback=initMap"
+    async defer></script>
 
 </body>
 </html>
