@@ -47,7 +47,54 @@ body {
 }
 
 #map1 {
-    border: 2px solid black; height: 100%; width: 100%; padding: 0px; margin: 0px;
+  border: 2px solid black; height: 100%; width: 100%; padding: 0px; margin: 0px;
+}
+
+#ride {
+  font-family: 'Poppins', sans-serif;
+  border: 2px solid black; height: 100%; width: 100%; padding: 0px; margin: 0px;
+  text-align: center;
+}
+
+#ride .title1 {
+  margin-bottom: 40px;
+}
+
+#ride button {
+  margin: 0 auto;
+  margin-top: 10px;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  display: block;
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 32px;
+  width: 400px;
+  border-radius: 8px;
+}
+
+#ride hr {
+  border: 1px solid #adb5ba;
+  width: 600px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+#ride button:hover {
+  background-color: white;
+  color: black;
+  border-radius: 8px;
+}
+
+#ride .search {
+  margin-top: 40px;
+  color: #666666;
+  background-color: #d9d9d9;
+}
+
+#ride .search:hover {
+  color: black;
+  background-color: white;
 }
 
 #mySidebar #label button{
@@ -71,5 +118,6 @@ body {
 #mySidebar #label button:hover{
   background: #4CAF50;
 }
+
 
 
