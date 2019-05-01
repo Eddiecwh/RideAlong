@@ -3,13 +3,13 @@
      home.html -->
 
 <html>
-
 <head>
   <!-- CSS stylesheets -->
     <!-- For general styling -->
   <link rel="stylesheet" type="text/css" href="style.css">
-    <!-- For the title font -->
+    <!-- For the fonts -->
   <link href='https://fonts.googleapis.com/css?family=Alfa Slab One' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <!-- For the slide-out menu -->
   <link rel="stylesheet" href="sidebar_styling.css">
 
@@ -17,6 +17,64 @@
   <meta name="viewport" content="initial-scale=1.0">
   <meta charset="utf-8">
 </head>
+
+<script>
+  // These variables are used to search at the end! 
+  var startLocation;
+  var endLocation;
+  var dateTime;
+
+  // If flag is set to true, search for ride function will be unavailable
+  var flag = true;
+
+  function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+  }
+
+  function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+  } 
+
+  function open_start() {
+    var prompt1 = window.prompt("Enter your starting location here:", "");
+    if (prompt1 == null || prompt1 == "") {
+      prompt1 = "No location was entered";
+      startLocation = prompt1;
+      flag = true;
+    } else {
+      startLocation = prompt1;
+      flag = false;
+    }
+    document.getElementById("start").innerHTML = startLocation;
+  }
+
+  function open_end() {
+    var prompt2 = window.prompt("Enter your end location here:", "");
+    if (prompt2 == null || prompt2 == "") {
+      prompt2 = "No location was entered";
+      endLocation = prompt2;
+      flag = true;
+    } else {
+      endLocation = prompt2;
+      flag = false;
+    }
+    document.getElementById("end").innerHTML = endLocation;
+  }
+
+  function open_date() {
+    var prompt3 = window.prompt("Enter your date and time in this format e.g 'December 17, 2019 03:24:00'", "");
+    if (prompt3 == null || prompt3 == "") {
+      prompt3 == "No date or time was entered";
+      dateTime = prompt3;
+      flag = true;
+    } else {
+      dateTime = prompt3;
+      flag = false;
+    } 
+    var text = 'Your selected date & time is: ' + dateTime;
+    document.getElementById("chosenDate").innerHTML = text;
+  }
+</script>
 
 <body>
   <!-- Sidebar -->
@@ -37,9 +95,20 @@
       <a class="active" href="passenger.html">Passenger</a>
     </div>
   </div>
-  <div id="map1"></div> <!-- Div for map -->
-  <script>
 
+  <div id="ride">
+    <h1 class="title1" style="font-family: 'Poppins', sans-serif; margin-top: 100px">Looking for a ride? Let's go!</h1>
+      <button onclick="open_start()">Leaving from</button>
+      <p id="start" style="font-style: italic"></p>
+      <button onclick="open_end()">Going to</button>
+      <p id="end" style="font-style: italic"></p>
+      <hr>
+      <button id="date" style="margin-top: 30px; font-style: italic" onclick="open_date()">Select your Date and Time</button>
+      <p id="chosenDate"></p>
+      <hr>
+      <button class="button search">Click here to search for your ride</button>
+  </div> <!-- Div for map -->
+  <!--<script>
   // Function to create map
   function initMap() {
         var latlng = new google.maps.LatLng(35.2031, -85.9211);
@@ -51,20 +120,10 @@
                  
     var map1 = new google.maps.Map(document.getElementById("map1"), settings);
   }
-  </script>
+  </script>-->
 
-  <script>
-  function w3_open() {
-    document.getElementById("mySidebar").style.display = "block";
-  }
-
-  function w3_close() {
-    document.getElementById("mySidebar").style.display = "none";
-  } 
-  </script>
-
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGPJCC0UuL1quW1tz93wX_bvON2Z7EmAA&callback=initMap"
-    async defer></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGPJCC0UuL1quW1tz93wX_bvON2Z7EmAA&callback=initMap"
+    async defer></script> -->
 
 </body>
 </html>
