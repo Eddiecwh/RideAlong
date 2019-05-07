@@ -1,0 +1,107 @@
+body, html {
+  height: 100%;
+}
+
+.bg-image{
+  background: url(background.jpg) no-repeat center center fixed;
+  position: relative;
+ 
+  /* Add the blur effect */
+  filter: blur(7px);
+  -webkit-filter: blur(7px);
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.name {
+  transform: translate(-50%, -50%);
+  position: absolute;
+  text-align: left;
+}
+
+.title {
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  border-radius: 25px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  padding: 3px;
+  text-align: center;
+}
+
+.button {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+  font-family: 'Annie Use Your Telescope';
+  font-size: 50px;
+  padding: 16px 30px;
+  border: 2px solid white;
+  cursor: pointer;
+  border-radius: 10px;
+  text-align: center;
+  transition: all 0.5s;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 30px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.title {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  font-family: 'Gloria Hallelujah', 'serif';
+  font-size: 88px;
+  color: white;
+}
+
+.subheader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  font-size: 50px;
+  color: white;
+  text-align: center;
+  font-family: URW Chancery L, cursive;
+}

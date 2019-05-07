@@ -1,3 +1,8 @@
+
+/* CS286-Geomapping and Location
+     Eddie and Liam
+     home.html */
+
 html {
     height: 100%;
     padding: 0;
@@ -9,27 +14,29 @@ body {
 }
 
 .topnav {
+  position: relative;
+  background-color: #616161;
   overflow: hidden;
-  background-color: #333;
-}
-
-.topnav .leftItems {
-  display: inline-block;
 }
 
 .topnav .rightItems {
-  display: inline-block;
+  float: right;
 }
 
 .topnav .centerItems {
-  text-align: center;
+  float: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   color: white;
 }
 
 .topnav a {
+  float: left;
   color: #f2f2f2;
   text-align: center;
-  padding: 16px 16px;
+  padding: 13px 16px;
   text-decoration: none;
   font-size: 17px;
 }
@@ -47,4 +54,27 @@ body {
 #map1 {
     border: 2px solid black; height: 100%; width: 100%; padding: 0px; margin: 0px;
 }
+
+#mySidebar #label button{
+  margin-top:5px;
+  border: white 2px;
+  color: black;
+  padding: 15px 15px;
+  text-align: center;
+  width: 150px;
+}
+
+#mySidebar #label input{
+  background: #69f472;
+  border: white 2px;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  width: 300px;
+}
+
+#mySidebar #label button:hover{
+  background: #4CAF50;
+}
+
 
