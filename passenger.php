@@ -16,6 +16,8 @@
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGPJCC0UuL1quW1tz93wX_bvON2Z7EmAA&callback=initMap"></script>
+
   <title>Ride Along</title>
   <meta name="viewport" content="initial-scale=1.0">
   <meta charset="utf-8">
@@ -103,6 +105,7 @@
   var dateTime;
 
   var directionsService = new google.maps.DirectionsService();
+  var directionDisplays = [];
   var directionsDisplay = new google.maps.DirectionsRenderer();
   // Function to create map
   function initMap() {
@@ -277,7 +280,5 @@
   <div id="map1"></div>
 
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGPJCC0UuL1quW1tz93wX_bvON2Z7EmAA&callback=initMap"
-    async defer></script>
 </body>
 </html>
