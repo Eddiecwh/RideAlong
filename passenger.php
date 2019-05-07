@@ -44,13 +44,16 @@
     echo 'NO COOKIE';
   }
 
+
+
   //Create trip class, which will store database info in php objects
   //This will allow for parsing to JSON
   class Trip{
     //constructor - this will also handle parsing the start and end location strings
     //into separate start_lat, start_long, end_lat and end_long strings
-    public function __construct($Driver, $Start, $End){
-      $this->Driver = $Driver;
+    public function __construct($DriverID,$DriverName, $Start, $End){
+      $this->Driver = $DriverID;
+      $this->DriverName = $DriverName;
       //explode raw start string by the comma and space delimiter, after pulling off the start and
       //end parens
       $start_parsed = explode(", ", substr($Start, 1, strlen($Start) - 2)); 
@@ -69,12 +72,26 @@
   $sql = "SELECT * FROM Trips";
   $result = mysqli_query($conn, $sql); // First parameter is just return of
                                        // "mysqli_connect()" function
+  $nameQ = "SELECT Name FROM Trips, Users WHERE Users.UserID = Trips.UserID";
+  $nameResult = mysqli_query($conn, $nameQ); 
+  //create placeholders for params
+  $user;
+  $start_param;
+  $end_param;
+
+  $driver_names = array();
+
+  while ($row = mysqli_fetch_assoc($nameResult)) {
+    foreach($row as $field => $value){
+      if($field == "Name"){
+        array_push($driver_names, $value);
+      }
+    }
+  }
+
+  $index = 0;
   while ($row = mysqli_fetch_assoc($result)) {
     //row access
-    //create placeholders for params
-    $user;
-    $start_param;
-    $end_param;
     foreach ($row as $field => $value) { 
     //column acces
     //Identify column type and asign value to proper var
@@ -89,9 +106,14 @@
       }
     }
     if($user != null && $start_param != null && $end_param != null){
-      array_push($trips, new Trip($user, $start_param, $end_param));
+      array_push($trips, new Trip($user,$driver_names[$index++], $start_param, $end_param));
     }
   }
+ // while ($row = mysqli_fetch_assoc($nameResult)) {
+   // $driver_name = $row;
+  //}
+  
+
   //Convert to JSON 
   $trip_json = json_encode($trips);
 
@@ -103,10 +125,17 @@
   var startLocation;
   var endLocation;
   var dateTime;
+  var dirIndex = 0;
+  var map1;
 
   var directionsService = new google.maps.DirectionsService();
-  var directionDisplays = [];
-  var directionsDisplay = new google.maps.DirectionsRenderer();
+  var directionsDisplay;
+  var directionsDisplays = [];
+  //Populate directionsDisplay array.  Google sets a max of 10 directions to be displayed at once,
+  //which is why we are hardcoding ten displays here
+  for(var i = 0; i <= 10; i++){
+    directionsDisplays[i] = new google.maps.DirectionsRenderer();
+  }
   // Function to create map
   function initMap() {
         var latlng = new google.maps.LatLng(35.2031, -85.9211);
@@ -116,11 +145,10 @@
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
                  
-    var map1 = new google.maps.Map(document.getElementById("map1"), settings);
+    map1 = new google.maps.Map(document.getElementById("map1"), settings);
+
     showTrips();
-
     directionsDisplay.setMap(map1);
-
   }
   // If flag is set to true, search for ride function will be unavailable
   var flag = true;
@@ -208,21 +236,49 @@
     }); // end geocoder.geocode function
   }// end locateAddress
 
-  function showDirections(start, end) {
+  // This random color generator function was obtained from 
+  //https://stackoverflow.com/questions/1484506  /random-color-generator, made by user Anatoliy
+  function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    } 
+    return color;
+  }
+
+  function showDirections(start, end, name) {
     console.log("showDirections()")
     var request = {
       origin: start,
       destination: end,
       travelMode: google.maps.TravelMode.DRIVING
     };
-  
     directionsService.route(request, function(result, status) {
-      if (status == google.maps.DirectionsStatus.OK) {
-        directionsDisplay.setDirections(result);
+      if (status == google.maps.DirectionsStatus.OK && dirIndex < directionsDisplays.length) {
+        map1.fitBounds(result.routes[0].bounds);
+        createPolyline(result, name);
       }
+
+    dirIndex++;
     });
+
   }
 
+  //Create polyline - creates polyline based on direction data, so that we can add our listener
+  function createPolyline(directionResult, name) {
+    var line = new google.maps.Polyline({
+        path: directionResult.routes[0].overview_path,
+        strokeColor: getRandomColor(),
+        strokeOpacity: 0.5,
+        strokeWeight: 4
+    });
+   
+    line.addListener('click', function(){alert(name);});    
+
+    line.setMap(map1);
+    
+  }
   //Pulls Trip information from the div created by php, then shows directions
   function showTrips(){
     //pull trip data
@@ -233,7 +289,7 @@
       var trip = trip_data[i];
       var start = new google.maps.LatLng(trip.Start_Lat, trip.Start_Long); 
       var end = new google.maps.LatLng(trip.End_Lat, trip.End_Long); 
-      showDirections(start, end);
+      showDirections(start, end, trip.DriverName);
     }
 
   }

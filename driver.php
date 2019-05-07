@@ -136,7 +136,6 @@
 
   <!--Identify User
   Uses cookie set by login script to identify the current user 
-  -->
 
   <?php
   $conn = new mysqli('pippin.sewanee.edu', 'webUser', 'webLogPass', 'RideAlongUsers');
